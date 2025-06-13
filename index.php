@@ -11,7 +11,8 @@
       <div class="col-md-3">
         <!-- Left side column. contains the logo and sidebar -->
         <?php include('menu_left.php');?>
-        <!-- Content Wrapper. Contains page content -->
+        <!-- Content Wrapper. Contains page content --> 
+         <p> ชื่อสินค้า</p>
       </div>
     </div>
   </div>
