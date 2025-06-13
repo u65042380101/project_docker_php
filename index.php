@@ -13,6 +13,7 @@
         <?php include('menu_left.php');?>
         <!-- Content Wrapper. Contains page content --> 
          <p> ชื่อสินค้า</p>
+         <p> ชื่อ</p>
       </div>
     </div>
   </div>
