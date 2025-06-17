@@ -10,7 +10,7 @@ on:
 
 jobs:
   publish_images:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestก
 
     steps:
       - name: Checkout repository
