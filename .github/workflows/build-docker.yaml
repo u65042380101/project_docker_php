@@ -1,6 +1,6 @@
 name: Build and Publish image to Docker Hub
 
-on: 
+on:
   push:
     branches:
       - main
@@ -9,11 +9,11 @@ on:
       - 'front-end-nextjs/Dockerfile'
 
 jobs:
-  Publish_images:
-    runs-on: ubuntu-latest
+  publish_images:
+    runs-on: ubuntu-latest  # ✅ ต้องใช้ขีดกลาง ไม่ใช่ ubuntu_latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
