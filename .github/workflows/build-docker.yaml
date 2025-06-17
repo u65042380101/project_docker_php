@@ -1,4 +1,5 @@
-name : Build and Publish image to docker Hub
+name: Build and Publish image to Docker Hub
+
 on: 
   push:
     branches:
@@ -6,18 +7,22 @@ on:
   paths:
     - 'api/dockerfile'
     - 'front-end-nextjs/dockerfile'
+
 jobs:
   Publish_images:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
+
     steps:
-      - name: checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: build image
+
+      - name: Build Docker images
         run: |
-          docker build ./api/ -t phuttipong1/project-web:latest
-          docker build ./front-end-nextjs/ -t phuttipong1/project-web:latest
-      - name: push image to docker hub
-        run:  |
+          docker build ./api/ -t phuttipong1/project-web-api:latest
+          docker build ./front-end-nextjs/ -t phuttipong1/project-web-frontend:latest
+
+      - name: Push images to Docker Hub
+        run: |
           docker login -u phuttipong1 -p ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker push phuttipong1/project-web:latest
-          docker push phuttipong1/project-web:latest
+          docker push phuttipong1/project-web-api:latest
+          docker push phuttipong1/project-web-frontend:latest
