@@ -10,16 +10,16 @@ on:
 
 jobs:
   Publish_images:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: build image
         run: |
           docker build ./api/ -t phuttipong1/project-web:latest
-          docker build ./front-end-next/ -t phuttipong1/project-web:latest
+          docker build ./front-end-nextjs/ -t phuttipong1/project-web:latest
       - name: push image to docker hub
-        run:  |
+        run: |
           docker login -u phuttipong1 -p ${{ secrets.DOCKER_HUB_PASSWORD }}
           docker push phuttipong1/project-web:latest
           docker push phuttipong1/project-web:latest
