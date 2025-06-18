@@ -1,28 +1,42 @@
-name: Build and Publish image to Docker Hub
+name: Build and Publish Docker Images to Docker Hub
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'api/dockerfile'
-      - 'front-end-nextjs/dockerfile'
+      - 'api/Dockerfile'
+      - 'front-end-nextjs/Dockerfile'
 
 jobs:
-  Publish_images:
+  publish-images:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build Docker images
-        run: |
-          docker build ./api/ -t phuttipong1/project-web-api:latest
-          docker build ./front-end-nextjs/ -t phuttipong1/project-web-frontend:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Push images to Docker Hub
-        run: |
-          docker login -u phuttipong1 -p ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker push phuttipong1/project-web-api:latest
-          docker push phuttipong1/project-web-frontend:latest
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: phuttipong1
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and Push API Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./api
+          file: ./api/Dockerfile
+          push: true
+          tags: phuttipong1/project-web-api:latest
+
+      - name: Build and Push Frontend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./front-end-nextjs
+          file: ./front-end-nextjs/Dockerfile
+          push: true
+          tags: phuttipong1/project-web-frontend:latest
