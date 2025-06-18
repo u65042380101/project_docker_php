@@ -22,6 +22,16 @@ jobs:
         run: |
           docker login -u phuttipong1 -p ${{ secrets.DOCKER_HUB_PASSWORD }}
           docker push phuttipong1/project-web:latest
-          docker push phuttipong1/project-web:latest
+      - name: logout from docker hub
+        run: |
+          docker logout       
+      - name: cleanup 
+        run: |
+          docker rmi phuttipong1/project-web:latest
+          docker system prune -f
+          docker volume prune -f
+          docker network prune -f
+          docker image prune -f
+          docker container prune -f   
 
 
