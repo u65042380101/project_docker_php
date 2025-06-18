@@ -5,7 +5,7 @@ on:
     branches:
       - main
     push:
-      - 'Dockerfile'
+      - 'api/Dockerfile'
       - 'front-end-nextjs/Dockerfile'
 
 jobs:
