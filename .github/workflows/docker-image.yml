@@ -7,12 +7,26 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-
+  build-and-push:
     runs-on: ubuntu-latest
 
+    permissions:
+      packages: write       # สำคัญมาก: ให้สิทธิ์ push image
+      contents: read
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build the Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/my-image-name
+          docker build . --file Dockerfile --tag $IMAGE_NAME:latest
+
+      - name: Push the image to GitHub Packages
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/my-image-name
+          docker push $IMAGE_NAME:latest
