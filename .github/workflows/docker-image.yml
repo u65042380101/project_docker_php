@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      packages: write       # สำคัญมาก: ให้สิทธิ์ push imageล
+      packages: write       # สำคัญมาก:ให้สิทธิ์ push image
 
     steps:
       - name: Checkout code
